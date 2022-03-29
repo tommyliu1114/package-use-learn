@@ -12,6 +12,7 @@ func main() {
 	fmt.Println("server start")
 	mainCmd := &cobra.Command{Use: "spf13-cobra"}
 	mainCmd.AddCommand(localcmd.VersionCMD())
+	mainCmd.AddCommand(localcmd.VerifyCMD())
 	err := mainCmd.Execute()
 	if err != nil {
 		fmt.Println(err)
