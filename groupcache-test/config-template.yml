@@ -1,3 +1,3 @@
 server:
   id: srv1
-  
+  addr: :11001 # 端口

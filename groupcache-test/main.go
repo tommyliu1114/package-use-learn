@@ -1,44 +1,17 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
-	"time"
-
-	"gopkg.in/yaml.v2"
-)
-
-var (
-	GCFG *SrvCFG
+	"groupcache-test/http_pool"
+	"groupcache-test/local_utils"
+	"net/http"
 )
 
 func main() {
-
-}
-
-func Logf(vals ...interface{}) {
-	outs := make([]interface{}, 0, len(vals)+2)
-	outs = append(outs, fmt.Sprintf("[%s] [%s] ", time.Now().String(), GCFG.Server.Id))
-	outs = append(outs, vals...)
-	fmt.Println(outs...)
-}
-
-func LoadCFG(file string) (*SrvCFG, error) {
-	fs, fsErr := ioutil.ReadFile(file)
-	if fsErr != nil {
-		return nil, fsErr
+	gRouter := http_pool.NewHttpPool(local_utils.GCFG.Server.Id, "groupcache-test")
+	local_utils.Logf(local_utils.GCFG.Server.Id, local_utils.GCFG.Server.Addr, " server  starting")
+	srvErr := http.ListenAndServe(local_utils.GCFG.Server.Addr, gRouter)
+	if srvErr != nil {
+		local_utils.Logf(srvErr.Error())
 	}
-	var retCfg SrvCFG
-	parseErr := yaml.Unmarshal(fs, &retCfg)
-	if parseErr != nil {
-		return nil, parseErr
-	}
-	GCFG = &retCfg
-	return &retCfg, nil
-}
-
-type SrvCFG struct {
-	Server struct {
-		Id string `yaml:"id"`
-	}
+	local_utils.Logf(local_utils.GCFG.Server.Id, local_utils.GCFG.Server.Addr, " server shutdown")
 }
