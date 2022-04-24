@@ -1,12 +1,23 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"unsafe"
 
 	bolt "github.com/boltdb/bolt"
 )
 
 func main() {
+	carrs := [10]int{-101, 215}
+	ccp := unsafe.Pointer(&carrs)
+	fmt.Printf("pointer is : %+v \n", ccp)
+
+	ccpa := (*[20]int)(ccp)
+	for i, v := range ccpa {
+		fmt.Printf("index(%d), value(%d) \n", i, v)
+	}
+
 	// 我们的大柜子
 	db, err := bolt.Open("./my.db", 0600, nil)
 	if err != nil {
