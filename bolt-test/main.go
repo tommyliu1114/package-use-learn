@@ -3,12 +3,16 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"unsafe"
 
 	bolt "github.com/boltdb/bolt"
 )
 
 func main() {
+	hn, _ := os.Hostname()
+	fmt.Println("hostname : ", hn)
+	return
 	carrs := [10]int{-101, 215}
 	ccp := unsafe.Pointer(&carrs)
 	fmt.Printf("pointer is : %+v \n", ccp)
