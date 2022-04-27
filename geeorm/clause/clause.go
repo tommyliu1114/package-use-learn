@@ -1,6 +1,8 @@
 package clause
 
-import "strings"
+import (
+	"strings"
+)
 
 type Clause struct {
 	sql     map[Type]string
@@ -16,6 +18,9 @@ const (
 	LIMIT
 	WHERE
 	ORDERBY
+	UPDATE
+	DELETE
+	COUNT
 )
 
 func (c *Clause) Set(name Type, vars ...interface{}) {

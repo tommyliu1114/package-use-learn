@@ -32,5 +32,7 @@ func main() {
 	var users []User
 	s.Find(&users)
 	fmt.Printf("users are : %+v \n", users)
-
+	var tUser User
+	s.First(&tUser)
+	fmt.Printf("tuser is %+v \n", tUser)
 }
