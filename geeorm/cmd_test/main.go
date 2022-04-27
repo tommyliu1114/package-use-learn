@@ -1,12 +1,18 @@
 package main
 
 import (
+	"fmt"
 	"geeorm"
 
 	log "geeorm/log"
 
 	_ "github.com/mattn/go-sqlite3"
 )
+
+type User struct {
+	Name string `geeorm:"PRIMARY KEY"`
+	Age  int
+}
 
 func main() {
 	engine, _ := geeorm.NewEngine("sqlite3", "/home/sen0324/testdbs/gee.db")
@@ -22,5 +28,9 @@ func main() {
 	} else {
 		log.Error(err.Error())
 	}
+
+	var users []User
+	s.Find(&users)
+	fmt.Printf("users are : %+v \n", users)
 
 }

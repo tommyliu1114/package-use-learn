@@ -16,6 +16,10 @@ func testSelect(t *testing.T) {
 
 }
 
+func testFind(t *testing.T) {
+
+}
+
 func TestClause_build(t *testing.T) {
 	testSelect(t)
 }
